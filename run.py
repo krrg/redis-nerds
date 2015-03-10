@@ -31,9 +31,10 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Deletes all keys in a Redis store that have a ttl == -1')
 parser.add_argument('--host', default='localhost', required=False)
+parser.add_argument('--port', default=6379, required=False)
 N = parser.parse_args()
 
-R = redis.StrictRedis(host=N.host, port=6379)
+R = redis.StrictRedis(host=N.host, port=N.port)
 
 for key in list(R.keys()):
     if R.ttl(key) == -1:
